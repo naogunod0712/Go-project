@@ -12,15 +12,16 @@ func main() {
 	var remainTickets uint = 50
 
 	fmt.Printf(" Welcome to %v\n", orgname)
-	fmt.Println(" Welcome to", confname, "booking application")
+	greetUsers(confname)
+	// fmt.Println(" Welcome to", confname, "booking application")
 	fmt.Println(" We have total of", confTickets, "tickets and", remainTickets, "this many are still available")
 	fmt.Println(" Book your tickets to attend")
 	fmt.Printf(" orgname is %T , remaining tickets is %T \n", orgname, remainTickets)
 
 	// var bookings =[50]string{} //arrays
-	var bookingslice = []string{} // using slices
+	bookingslice := []string{} // using slices
 
-	for remainTickets > 0  && len(bookingslice) < confTickets {
+	for remainTickets > 0 && len(bookingslice) < confTickets {
 		var firstName string
 		var lastName string
 		var email string
@@ -38,7 +39,16 @@ func main() {
 		fmt.Println(" Enter how many tickets are you buying")
 		fmt.Scan(&userTickets)
 
-		if userTickets <= remainTickets {
+		// check if user input is valid
+		isValidName := len(firstName) >= 2 && len(lastName) >= 2
+
+		// EMAIL VERIFICATION
+		isValidEmail := strings.Contains(email, "@")
+
+		isValidTicketNum := userTickets > 0 && userTickets <= remainTickets
+
+		//this would check the validity first before we run the booking
+		if isValidName && isValidEmail && isValidTicketNum {
 
 			remainTickets = remainTickets - userTickets
 
@@ -77,7 +87,38 @@ func main() {
 				break
 			}
 		} else {
-			fmt.Printf(" We only have %v tickets remaining, so you can't book %v tickets\n", remainTickets, userTickets)
+			if !isValidName {
+				fmt.Println("first name or last name you entered is short ")
+			}
+			if !isValidEmail {
+				fmt.Println(" email address is invalid ")
+			}
+			if !isValidTicketNum {
+				fmt.Println("number of tickets you entered is invalid ")
+			}
+			// fmt.Println("Your input data is invalid, try again")
+			// fmt.Printf(" We only have %v tickets remaining, so you can't book %v tickets\n", remainTickets, userTickets)
 		}
 	}
+
+	city := "London"
+
+	// switch city{
+	// case "New York" :
+	// 	// execute code for booking NY 
+	// case "Singapore" :
+	// 	//execute code for singapore 
+	// case "London":
+	// 	// execute code for London
+	// case "Mexico City", "Lagos":
+	// 	// they both have the same code, so consildate teh code into one 
+	// default:
+	// 	fmt.Println("No valid city selected")
+	// }
 }
+
+func greetUsers(confnamefunc string) {
+	fmt.Printf(" Welcome to our %v booking application function\n", confnamefunc)
+}
+
+
