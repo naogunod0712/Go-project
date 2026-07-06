@@ -11,11 +11,11 @@ func main() {
 	const confTickets = 50
 	var remainTickets uint = 50
 
-	fmt.Printf(" Welcome to %v\n", orgname)
-	greetUsers(confname)
-	// fmt.Println(" Welcome to", confname, "booking application")
-	fmt.Println(" We have total of", confTickets, "tickets and", remainTickets, "this many are still available")
-	fmt.Println(" Book your tickets to attend")
+	greetUsers(confname, confTickets, remainTickets)
+	// fmt.Printf(" Welcome to %v\n", orgname)
+	// // fmt.Println(" Welcome to", confname, "booking application")
+	// fmt.Println(" We have total of", confTickets, "tickets and", remainTickets, "this many are still available")
+	// fmt.Println(" Book your tickets to attend")
 	fmt.Printf(" orgname is %T , remaining tickets is %T \n", orgname, remainTickets)
 
 	// var bookings =[50]string{} //arrays
@@ -70,13 +70,10 @@ func main() {
 			fmt.Printf(" User %v %v bought %v tickets successfully, it has been sent to email address:%v\n", firstName, lastName, userTickets, email)
 
 			//we want to only get first names from the bookingslice
-			var firstNames = []string{}
-			for _, bookingloop := range bookingslice {
-				var names = strings.Split(bookingloop, " , ")
-				firstNames = append(firstNames, names[0])
-			}
 
-			fmt.Printf(" Hey %v, there are now  %v tickets left for  %v\n", firstNames, remainTickets, confname)
+			//call function print first nae
+			firstNames := getFirstname(bookingslice)
+			fmt.Printf(" The fiurst names of the booking are %v\n", firstNames)
 
 			// fmt.Println(remainTickets)
 			// fmt.Println(&remainTickets)
@@ -101,24 +98,35 @@ func main() {
 		}
 	}
 
-	city := "London"
+	// city := "London"
 
 	// switch city{
 	// case "New York" :
-	// 	// execute code for booking NY 
+	// 	// execute code for booking NY
 	// case "Singapore" :
-	// 	//execute code for singapore 
+	// 	//execute code for singapore
 	// case "London":
 	// 	// execute code for London
 	// case "Mexico City", "Lagos":
-	// 	// they both have the same code, so consildate teh code into one 
+	// 	// they both have the same code, so consildate teh code into one
 	// default:
 	// 	fmt.Println("No valid city selected")
 	// }
 }
 
-func greetUsers(confnamefunc string) {
+func greetUsers(confnamefunc string, confTickets int, remainTickets uint) {
 	fmt.Printf(" Welcome to our %v booking application function\n", confnamefunc)
+	fmt.Printf("We have a total of %v tickets and %v are still available \n", confTickets, remainTickets)
+	fmt.Println("Get your tickets here to attend func")
 }
 
+func getFirstname(bookingslice []string) []string {
+	var firstNames = []string{}
+	for _, bookingloop := range bookingslice {
+		var names = strings.Split(bookingloop, " , ")
+		firstNames = append(firstNames, names[0])
+	}
+	return firstNames
+	// fmt.Printf(" Hey %v, there are now  %v tickets left for  %v\n", firstNames, remainTickets, confname)
 
+}
