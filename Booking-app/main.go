@@ -1,15 +1,19 @@
 package main
 
 import (
+	"Booking-app/helper"
 	"fmt"
 	"strings"
 )
 
+var orgname = "NOTA"
+var confname = "Go Conference"
+const confTickets = 50
+var remainTickets uint = 50
+var bookingslice = []string{}
+
 func main() {
-	var orgname = "NOTA"
-	var confname = "Go Conference"
-	const confTickets = 50
-	var remainTickets uint = 50
+
 
 	greetUsers(confname, confTickets, remainTickets)
 	// fmt.Printf(" Welcome to %v\n", orgname)
@@ -72,8 +76,8 @@ func main() {
 			//we want to only get first names from the bookingslice
 
 			//call function print first nae
-			firstNames := getFirstname(bookingslice)
-			fmt.Printf(" The fiurst names of the booking are %v\n", firstNames)
+			firstNames := helper.GetFirstname(bookingslice)
+			fmt.Printf(" The fi rst names of the booking are %v\n", firstNames)
 
 			// fmt.Println(remainTickets)
 			// fmt.Println(&remainTickets)
@@ -120,13 +124,13 @@ func greetUsers(confnamefunc string, confTickets int, remainTickets uint) {
 	fmt.Println("Get your tickets here to attend func")
 }
 
-func getFirstname(bookingslice []string) []string {
-	var firstNames = []string{}
-	for _, bookingloop := range bookingslice {
-		var names = strings.Split(bookingloop, " , ")
-		firstNames = append(firstNames, names[0])
-	}
-	return firstNames
-	// fmt.Printf(" Hey %v, there are now  %v tickets left for  %v\n", firstNames, remainTickets, confname)
+func bookTicket(userTickets uint,firstName string, lastName string, email string){
+	remainTickets = remainTickets -userTickets
 
+	bookingslice = append( bookings, firstName + " " + lastName)
+
+	fmt.Printf( "Thank you %v %v for booking %v tickets. You will recieve a confirmation email\n", firstName,lastName,userTickets )
+	fmt.Printf( "%v tickets remianing for %v\n", remainTickets, confname)
 }
+	
+
